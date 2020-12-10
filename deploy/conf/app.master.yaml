@@ -1,0 +1,20 @@
+workDir: /go/src/app/tmp/
+oss:
+  accessKey: 
+  accessKeySecret: 
+  endpoint: 
+  bucket: 
+  domain: 
+db:
+  default:
+    type: mysql
+    host: 
+    port: 3306
+    user: 
+    password: 
+    dbname: 
+redis:
+  default:
+    addr: 
+    password: 
+    db: 0

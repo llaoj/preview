@@ -1,0 +1,43 @@
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: "/certs"
+  APP_NAME: oconv-$CI_COMMIT_REF_NAME
+  APP_IMAGE: $ALI_REGISTRY/lucasgchr/oconv-$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA
+
+stages:
+  - build
+  - deploy
+
+
+build:
+  stage: build
+  image: docker:git
+  services:
+    - docker:19.03-dind
+  only:
+    - master
+    # - testing
+  script: 
+    - mv ./deploy/conf/app.${CI_COMMIT_REF_NAME}.yaml ./app.yaml
+    - docker login --username=$ALI_REGISTRY_USERNAME --password=$ALI_REGISTRY_PASSWORD $ALI_REGISTRY
+    - docker build -f ./deploy/Dockerfile -t $APP_IMAGE .
+    - docker push $APP_IMAGE
+
+deploy:
+  stage: deploy
+  image: llaoj/kubectl:1.18.2
+  only:
+    - master
+    # - testing
+  script: 
+    - cp $KUBECTL_CONF /root/.kube/config
+
+    # 根据环境设置副本数量
+    - '[ "$CI_COMMIT_REF_NAME"x == "master"x ] && APP_REPLICAS=1 || APP_REPLICAS=1'
+    
+    - sed -i "s!APP_NAME!$APP_NAME!g" ./deploy/deploy.yaml
+    - sed -i "s!APP_IMAGE!$APP_IMAGE!g" ./deploy/deploy.yaml
+    - sed -i "s!CI_COMMIT_SHORT_SHA!$CI_COMMIT_SHORT_SHA!g" ./deploy/deploy.yaml
+    - sed -i "s!APP_REPLICAS!$APP_REPLICAS!g" ./deploy/deploy.yaml
+
+    - kubectl apply -f ./deploy/deploy.yaml
