@@ -1,12 +1,16 @@
-# oconv
+# preview
 
-Office Converter
+Document preview online
 
-### 格式转换接口
+
+
+### 文档格式转换接口
+
+将文档格式转换为`jpg`或者`pdf`, 这样就可以前端渲染预览, 如果选择的输出格式为`jpg`, 为了提高预览速度, 会把文档按照页顺序切分成多张图片
 
 **url**
 
-`/conv`
+`/oconv`
 
 **method**
 
