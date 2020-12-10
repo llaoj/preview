@@ -8,7 +8,7 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 
-	"oconv/config"
+	"preview/config"
 )
 
 var db *gorm.DB

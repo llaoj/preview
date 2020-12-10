@@ -6,7 +6,7 @@ import (
 
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 
-	"oconv/config"
+	"preview/config"
 )
 
 func UploadToOss(files []string) (objs []string, err error) {
