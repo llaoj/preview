@@ -30,7 +30,7 @@ Document preview online
 status code = 200
 
 [
-    "https://oconv.oss-cn-beijing.aliyuncs.com/res/fc97cb88eebe4fa83b9a005b99f805d0ee5b407a674c4a88000ea54731e142b7.jpg"
+    "https://preview.mysite.test/oconv/res/fc97cb88eebe4fa83b9a005b99f805d0ee5b407a674c4a88000ea54731e142b7.jpg"
 ]
 ```
 
@@ -47,6 +47,7 @@ output file format invalid
 
 1. Content-Type: multipart/form-data
 2. 请求body最大不超过32M
+3. **重要:** 为了预览方便, 服务器只会缓存文档3天, 而且**保证不会用作其他用途**, 请提前做好备份
 
 ### gofmt
 
