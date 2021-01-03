@@ -14,7 +14,6 @@ RUN apt-get update && apt-get install -y -q \
     && mkdir -p /usr/share/fonts/win
 
 ADD simsun.ttc /usr/share/fonts/win/
-
 RUN mkfontscale \
     && mkfontdir \
     && fc-cache
